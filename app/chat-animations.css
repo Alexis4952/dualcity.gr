@@ -1,0 +1,148 @@
+/* Animation for the chat bubble */
+@keyframes chat-bubble-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-bubble-animation {
+  animation: chat-bubble-in 0.3s ease-out forwards;
+}
+
+/* Animation for the typing indicator */
+@keyframes typing-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.typing-dot:nth-child(1) {
+  animation: typing-dot 0.8s infinite;
+  animation-delay: 0s;
+}
+.typing-dot:nth-child(2) {
+  animation: typing-dot 0.8s infinite;
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation: typing-dot 0.8s infinite;
+  animation-delay: 0.3s;
+}
+
+/* Chat window animations */
+@keyframes chat-window-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-window-animation {
+  animation: chat-window-in 0.3s ease-out forwards;
+}
+
+/* Notification dot pulse */
+@keyframes notification-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.notification-pulse {
+  animation: notification-pulse 1.5s infinite;
+}
+
+/* Hide scrollbar but maintain functionality */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.3);
+  border-radius: 2px;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.5);
+}
+
+/* Chat themes */
+.theme-neon .chat-header {
+  background: linear-gradient(90deg, #6e0dd0 0%, #0e78ff 100%);
+}
+
+.theme-neon .user-message {
+  background: rgba(14, 120, 255, 0.3);
+  border: 1px solid rgba(14, 120, 255, 0.5);
+}
+
+.theme-neon .admin-message {
+  background: rgba(110, 13, 208, 0.3);
+  border: 1px solid rgba(110, 13, 208, 0.5);
+}
+
+.theme-neon .chat-button {
+  background: linear-gradient(90deg, #6e0dd0 0%, #0e78ff 100%);
+  box-shadow: 0 0 15px rgba(14, 120, 255, 0.5);
+}
+
+.theme-cyberpunk .chat-header {
+  background: linear-gradient(90deg, #ff2c55 0%, #ffa711 100%);
+}
+
+.theme-cyberpunk .user-message {
+  background: rgba(255, 44, 85, 0.3);
+  border: 1px solid rgba(255, 44, 85, 0.5);
+}
+
+.theme-cyberpunk .admin-message {
+  background: rgba(255, 167, 17, 0.3);
+  border: 1px solid rgba(255, 167, 17, 0.5);
+}
+
+.theme-cyberpunk .chat-button {
+  background: linear-gradient(90deg, #ff2c55 0%, #ffa711 100%);
+  box-shadow: 0 0 15px rgba(255, 44, 85, 0.5);
+}
+
+.theme-galaxy .chat-header {
+  background: linear-gradient(90deg, #00d2ff 0%, #9122ff 100%);
+}
+
+.theme-galaxy .user-message {
+  background: rgba(0, 210, 255, 0.3);
+  border: 1px solid rgba(0, 210, 255, 0.5);
+}
+
+.theme-galaxy .admin-message {
+  background: rgba(145, 34, 255, 0.3);
+  border: 1px solid rgba(145, 34, 255, 0.5);
+}
+
+.theme-galaxy .chat-button {
+  background: linear-gradient(90deg, #00d2ff 0%, #9122ff 100%);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+}

@@ -1,0 +1,329 @@
+/* V66 Chat Styles */
+
+/* Theme styles */
+.theme-v66 {
+  --chat-bg: rgba(0, 0, 0, 0.9);
+  --chat-border: rgba(0, 255, 255, 0.3);
+  --chat-header-bg: linear-gradient(to right, rgba(0, 102, 153, 0.8), rgba(102, 0, 153, 0.8));
+  --chat-input-bg: rgba(20, 20, 40, 0.5);
+  --chat-input-border: rgba(0, 255, 255, 0.3);
+  --chat-input-text: #ffffff;
+  --chat-input-placeholder: rgba(150, 150, 150, 0.7);
+  --chat-user-msg-bg: rgba(0, 102, 153, 0.3);
+  --chat-user-msg-border: rgba(0, 255, 255, 0.3);
+  --chat-admin-msg-bg: rgba(40, 40, 60, 0.7);
+  --chat-admin-msg-border: rgba(150, 0, 255, 0.3);
+  --chat-system-msg-bg: rgba(0, 0, 0, 0.5);
+  --chat-system-msg-text: rgba(200, 200, 200, 0.8);
+  --chat-button-bg: rgba(0, 102, 153, 0.5);
+  --chat-button-hover-bg: rgba(0, 102, 153, 0.7);
+  --chat-button-text: rgba(0, 255, 255, 0.8);
+  --chat-button-border: rgba(0, 255, 255, 0.3);
+  --chat-shadow: 0 0 20px rgba(0, 255, 255, 0.2), 0 0 40px rgba(0, 255, 255, 0.1);
+  --chat-typing-dot-bg: rgba(0, 255, 255, 0.8);
+}
+
+/* Animations */
+@keyframes v66-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes v66-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes v66-typing {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes v66-scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes v66-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes v66-data-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+/* Holographic effects */
+.v66-hologram {
+  position: relative;
+  overflow: hidden;
+}
+
+.v66-hologram::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0) 0%,
+    rgba(0, 255, 255, 0.05) 25%,
+    rgba(0, 255, 255, 0.1) 50%,
+    rgba(0, 255, 255, 0.05) 75%,
+    rgba(0, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: v66-data-flow 10s linear infinite;
+  pointer-events: none;
+}
+
+.v66-hologram::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0.5) 50%, rgba(0, 255, 255, 0) 100%);
+  animation: v66-scan-line 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Cyberpunk glitch effect */
+.v66-glitch {
+  position: relative;
+}
+
+.v66-glitch::before,
+.v66-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.v66-glitch::before {
+  color: #ff00ff;
+  animation: v66-glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  animation-delay: 0.05s;
+}
+
+.v66-glitch::after {
+  color: #00ffff;
+  animation: v66-glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  animation-delay: 0.1s;
+}
+
+/* Hide scrollbar but maintain functionality */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.5);
+}
+
+/* Typing indicator */
+.v66-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.v66-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--chat-typing-dot-bg);
+}
+
+.v66-typing-dot:nth-child(1) {
+  animation: v66-typing 0.8s infinite;
+}
+
+.v66-typing-dot:nth-child(2) {
+  animation: v66-typing 0.8s infinite 0.15s;
+}
+
+.v66-typing-dot:nth-child(3) {
+  animation: v66-typing 0.8s infinite 0.3s;
+}
+
+/* Button hover effects */
+.v66-button-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.v66-button-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0.1) 50%, rgba(0, 255, 255, 0) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.v66-button-hover:hover::before {
+  transform: translateX(100%);
+}
+
+/* Neon text effect */
+.v66-neon-text {
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(0, 255, 255, 0.5), 0 0
+    20px rgba(0, 255, 255, 0.5);
+}
+
+/* Encryption animation */
+.v66-encryption-animation {
+  position: relative;
+  overflow: hidden;
+}
+
+.v66-encryption-animation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 255, 255, 0.1) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(0, 255, 255, 0.1) 50%,
+    rgba(0, 255, 255, 0.1) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 4px 4px;
+  opacity: 0.3;
+  animation: v66-data-flow 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Connection status indicators */
+.v66-status-online {
+  background-color: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  animation: v66-pulse 2s infinite;
+}
+
+.v66-status-connecting {
+  background-color: rgba(255, 255, 0, 0.5);
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+  animation: v66-pulse 1s infinite;
+}
+
+.v66-status-offline {
+  background-color: rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+/* Progress bar animation */
+.v66-progress-bar {
+  height: 4px;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 1));
+  background-size: 200% 100%;
+  animation: v66-data-flow 2s linear infinite;
+  border-radius: 2px;
+}
+
+/* Message status indicators */
+.v66-message-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.v66-message-sending {
+  color: rgba(150, 150, 150, 0.7);
+  animation: v66-pulse 1s infinite;
+}
+
+.v66-message-sent {
+  color: rgba(150, 150, 150, 0.7);
+}
+
+.v66-message-delivered {
+  color: rgba(150, 150, 150, 0.7);
+}
+
+.v66-message-read {
+  color: rgba(0, 255, 255, 0.8);
+}
+
+.v66-message-error {
+  color: rgba(255, 0, 0, 0.8);
+}
+
+/* System message styles */
+.v66-system-info {
+  background-color: rgba(0, 100, 255, 0.3);
+  color: rgba(100, 200, 255, 0.9);
+}
+
+.v66-system-warning {
+  background-color: rgba(255, 200, 0, 0.3);
+  color: rgba(255, 200, 0, 0.9);
+}
+
+.v66-system-error {
+  background-color: rgba(255, 0, 0, 0.3);
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.v66-system-success {
+  background-color: rgba(0, 255, 0, 0.3);
+  color: rgba(100, 255, 100, 0.9);
+}

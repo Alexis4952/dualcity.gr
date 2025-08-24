@@ -1,0 +1,243 @@
+/* Space background animations */
+.stars-small {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow:
+    1947px 1536px #fff, 1650px 1932px #fff, 1372px 1637px #fff,
+    1669px 1346px #fff, 1645px 1372px #fff, 1300px 1453px #fff,
+    1591px 1970px #fff, 1089px 1483px #fff, 1622px 1148px #fff,
+    1212px 1739px #fff, 1635px 1885px #fff, 1083px 1644px #fff,
+    1584px 1344px #fff, 1418px 1424px #fff, 1472px 1073px #fff,
+    1200px 1758px #fff, 1484px 1993px #fff, 1131px 1214px #fff,
+    1659px 1642px #fff, 1353px 1264px #fff, 1632px 1246px #fff,
+    1936px 1316px #fff, 1399px 1470px #fff, 1949px 1358px #fff,
+    1964px 1128px #fff, 1546px 1166px #fff, 1802px 1648px #fff,
+    1437px 1331px #fff, 1060px 1991px #fff, 1853px 1272px #fff,
+    1932px 1734px #fff, 1341px 1321px #fff, 1691px 1476px #fff,
+    1275px 1512px #fff, 1800px 1939px #fff, 1009px 1256px #fff,
+    1993px 1039px #fff, 1977px 1525px #fff, 1797px 1717px #fff,
+    1145px 1992px #fff, 1687px 1210px #fff, 1928px 1330px #fff,
+    1304px 1368px #fff, 1651px 1479px #fff, 1145px 1992px #fff,
+    1687px 1210px #fff, 1928px 1330px #fff, 1304px 1368px #fff,
+    1651px 1479px #fff, 1145px 1992px #fff, 1687px 1210px #fff,
+    1928px 1330px #fff, 1304px 1368px #fff, 1651px 1479px #fff;
+  animation: twinkle 10s linear infinite;
+}
+
+.stars-medium {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    1947px 1536px #fff, 1650px 1932px #fff, 1372px 1637px #fff,
+    1669px 1346px #fff, 1645px 1372px #fff, 1300px 1453px #fff,
+    1591px 1970px #fff, 1089px 1483px #fff, 1622px 1148px #fff,
+    1212px 1739px #fff, 1635px 1885px #fff, 1083px 1644px #fff,
+    1584px 1344px #fff, 1418px 1424px #fff, 1472px 1073px #fff,
+    1200px 1758px #fff, 1484px 1993px #fff, 1131px 1214px #fff,
+    1659px 1642px #fff, 1353px 1264px #fff, 1632px 1246px #fff,
+    1936px 1316px #fff, 1399px 1470px #fff, 1949px 1358px #fff,
+    1964px 1128px #fff, 1546px 1166px #fff, 1802px 1648px #fff;
+  animation: twinkle 15s linear infinite;
+}
+
+.stars-large {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow:
+    1947px 1536px #fff, 1650px 1932px #fff, 1372px 1637px #fff,
+    1669px 1346px #fff, 1645px 1372px #fff, 1300px 1453px #fff,
+    1591px 1970px #fff, 1089px 1483px #fff, 1622px 1148px #fff,
+    1212px 1739px #fff, 1635px 1885px #fff, 1083px 1644px #fff;
+  animation: twinkle 20s linear infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* Shooting star */
+.shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 1px;
+  transform-origin: left;
+  animation: shooting-star 6s linear infinite;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  opacity: 0;
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(900px) translateY(900px) rotate(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(900px) translateY(900px) rotate(0);
+    opacity: 0;
+  }
+}
+
+/* Data lines */
+.data-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.data-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(0, 255, 255, 0) 0%, rgba(0, 255, 255, 0.3) 50%, rgba(0, 255, 255, 0) 100%);
+  transform: translateY(0);
+  animation: data-line-move 8s linear infinite;
+}
+
+@keyframes data-line-move {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Neon text effect */
+.neon-text {
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.3), 0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+/* Card with animated border */
+.card-v66 {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.card-v66::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0.3),
+    rgba(255, 0, 255, 0.1),
+    rgba(0, 255, 255, 0),
+    rgba(255, 0, 255, 0.3)
+  );
+  border-radius: 0.5rem;
+  z-index: -1;
+  animation: border-animate 6s linear infinite;
+}
+
+@keyframes border-animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animated lines background */
+.animated-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 255, 0.1) 50%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 0, 255, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+  background-size: 200% 200%, 200% 200%;
+  animation: line-move 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes line-move {
+  0% {
+    background-position: 0% 0%, 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%, 200% 200%;
+  }
+}
+
+/* Button V66 style */
+.btn-v66 {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #fff;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+}
+
+.btn-v66:hover {
+  border-color: rgba(0, 255, 255, 0.8);
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Input V66 style */
+.input-v66 {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.input-v66:focus {
+  border-color: rgba(0, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+}
+
+/* Dropdown V66 style */
+.dropdown-v66 {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  backdrop-filter: blur(10px);
+}

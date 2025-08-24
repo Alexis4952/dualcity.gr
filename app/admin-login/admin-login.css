@@ -1,0 +1,27 @@
+/* Σταθερό ύψος για τα containers των μηνυμάτων */
+.message-container {
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
+
+/* Σταθερό ύψος για τα alerts */
+.alert-container {
+  min-height: 60px;
+  transition: all 0.3s ease;
+}
+
+/* Αποτροπή αλλαγών στο layout κατά τη διάρκεια της πληκτρολόγησης */
+.login-form {
+  contain: layout;
+}
+
+/* Σταθερό ύψος για τα inputs */
+.input-container {
+  height: 70px;
+}
+
+/* Αποτροπή αλλαγών στο μέγεθος της σελίδας */
+.login-page {
+  overflow-y: scroll;
+  height: 100vh;
+}

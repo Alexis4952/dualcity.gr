@@ -1,0 +1,180 @@
+/* Thinking bubble styling */
+.thinking-bubble {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.thinking-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.thinking-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Agent container styling */
+.agent-container {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Agent settings panel */
+.agent-settings {
+  width: 280px;
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive positioning */
+@media (max-width: 768px) {
+  .agent-container {
+    transform: scale(0.8);
+    transform-origin: bottom center;
+  }
+
+  .thinking-bubble {
+    max-width: 200px;
+  }
+}
+
+/* Avatar expressions */
+.avatar-neutral {
+  transform: scale(1);
+}
+
+.avatar-happy {
+  animation: happy-bounce 1s ease infinite;
+}
+
+@keyframes happy-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.avatar-thinking {
+  animation: thinking-tilt 3s ease infinite;
+}
+
+@keyframes thinking-tilt {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(2deg);
+  }
+  70% {
+    transform: rotate(-2deg);
+  }
+}
+
+.avatar-surprised {
+  animation: surprised-pulse 0.5s ease;
+}
+
+@keyframes surprised-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.avatar-confused {
+  animation: confused-shake 2s ease infinite;
+}
+
+@keyframes confused-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+/* Ready Player Me specific styles */
+.rpm-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.rpm-iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.rpm-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.rpm-button {
+  background-color: rgba(30, 30, 50, 0.7);
+  border: 1px solid rgba(100, 100, 255, 0.3);
+  color: #a0a0ff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rpm-button:hover {
+  background-color: rgba(40, 40, 80, 0.8);
+  border-color: rgba(100, 100, 255, 0.5);
+  color: #c0c0ff;
+}
