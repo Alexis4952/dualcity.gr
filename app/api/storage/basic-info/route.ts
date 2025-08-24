@@ -36,7 +36,7 @@ export async function GET() {
       return NextResponse.json(
         {
           success: false,
-          error: bucketsError instanceof Error ? bucketsError.message : "Unknown error",
+          error: bucketsError.message,
           env: {
             hasUrl: !!supabaseUrl,
             hasKey: !!supabaseAnonKey,
@@ -58,7 +58,7 @@ export async function GET() {
           console.error(`Error listing files in bucket ${bucket.name}:`, filesError)
           bucketsInfo.push({
             name: bucket.name,
-            error: filesError instanceof Error ? filesError.message : "Unknown error",
+            error: filesError.message,
             files: [],
           })
         } else {
@@ -69,10 +69,9 @@ export async function GET() {
         }
       } catch (error) {
         console.error(`Error processing bucket ${bucket.name}:`, error)
-        const errorMessage = error instanceof Error ? error.message : "Unknown error"
         bucketsInfo.push({
           name: bucket.name,
-          error: errorMessage,
+          error: error.message || "Unknown error",
           files: [],
         })
       }
@@ -90,11 +89,10 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Unexpected error getting storage info:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         success: false,
-        error: errorMessage,
+        error: error.message || "Unknown error",
         env: {
           hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
           hasKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

@@ -127,11 +127,10 @@ export async function GET() {
     }
   } catch (error) {
     console.error("Unexpected error checking database connection:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         status: "error",
-        error: errorMessage,
+        error: error.message || "Unknown error",
         env: {
           hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
           hasKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

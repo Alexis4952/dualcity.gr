@@ -14,9 +14,9 @@ interface AdminLog {
   details: any
   created_at: string
   admins: {
-    id: any
-    username: any
-  }[]
+    id: string
+    username: string
+  }
 }
 
 export default function AdminLogsPage() {
@@ -144,7 +144,7 @@ export default function AdminLogsPage() {
                       logs.map((log) => (
                         <tr key={log.id} className="border-b border-gray-800 hover:bg-gray-800/30">
                           <td className="px-4 py-3 text-gray-300">{formatDate(log.created_at)}</td>
-                          <td className="px-4 py-3 text-white">{log.admins?.[0]?.username || "Άγνωστος"}</td>
+                          <td className="px-4 py-3 text-white">{log.admins?.username || "Άγνωστος"}</td>
                           <td className="px-4 py-3 text-gray-300">{formatAction(log.action)}</td>
                           <td className="px-4 py-3 text-gray-300">{formatDetails(log.details)}</td>
                         </tr>

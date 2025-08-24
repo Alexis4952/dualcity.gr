@@ -19,11 +19,10 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Error checking environment variables:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         status: "error",
-        error: errorMessage,
+        error: error.message || "Unknown error",
       },
       { status: 500 },
     )

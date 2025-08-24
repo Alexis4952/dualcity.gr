@@ -5,19 +5,82 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight, Users, BookOpen, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import dynamic from "next/dynamic"
 import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 
 // Discord link
 const DISCORD_LINK = "https://discord.gg/PdMYvK7WGN"
 
+// Δυναμική εισαγωγή components για καλύτερη απόδοση
+const DynamicFooter = dynamic(() => import("@/components/footer"), {
+  loading: () => <div className="py-10 bg-black/30 backdrop-blur-sm"></div>,
+  ssr: false,
+})
+
 export default function Home() {
-  // All sections are now always visible
-  // Removed refs - not needed anymore
+  const [visibleSections, setVisibleSections] = useState({
+    hero: true,
+    serverInfo: false,
+    joinSteps: false,
+  })
+  const serverInfoRef = useRef<HTMLElement>(null)
+  const joinStepsRef = useRef<HTMLElement>(null)
 
-  // Removed Intersection Observer - sections are now always visible
+  // Intersection Observer για lazy loading των sections
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    }
 
-  // Simplified animations - sections are always visible
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id
+          setVisibleSections((prev) => ({
+            ...prev,
+            [sectionId]: true,
+          }))
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    if (serverInfoRef.current) observer.observe(serverInfoRef.current)
+    if (joinStepsRef.current) observer.observe(joinStepsRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+
+  // Animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  }
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.1 * i,
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    }),
+  }
 
   return (
     <div className="min-h-screen text-white overflow-hidden">
@@ -88,9 +151,12 @@ export default function Home() {
       {/* Server Info Section */}
       <motion.section
         id="serverInfo"
+        ref={serverInfoRef}
         className="py-20 relative z-10"
-        initial="visible"
-        animate="visible"
+        variants={sectionVariants}
+        initial="hidden"
+        animate={visibleSections.serverInfo ? "visible" : "hidden"}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="container px-4 mx-auto">
           <div className="text-center mb-16">
@@ -117,7 +183,7 @@ export default function Home() {
                 href: "/guides",
               },
             ].map((feature, index) => (
-              <motion.div key={index} initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }}>
+              <motion.div key={index} variants={cardVariants} custom={index}>
                 <Link href={feature.href} className="block">
                   <div className="bg-black/30 backdrop-blur-sm rounded-lg p-6 h-full border border-gray-800 hover:border-cyan-900 transition-colors">
                     <div className="mb-4">{feature.icon}</div>
@@ -136,9 +202,12 @@ export default function Home() {
       {/* Join Section */}
       <motion.section
         id="joinSteps"
+        ref={joinStepsRef}
         className="py-20 relative z-10"
-        initial="visible"
-        animate="visible"
+        variants={sectionVariants}
+        initial="hidden"
+        animate={visibleSections.joinSteps ? "visible" : "hidden"}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="container px-4 mx-auto">
           <div className="text-center mb-16">
@@ -176,8 +245,8 @@ export default function Home() {
               <motion.div
                 key={index}
                 className="bg-black/30 backdrop-blur-sm rounded-lg p-6 relative overflow-hidden border border-gray-800"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
+                variants={cardVariants}
+                custom={index}
               >
                 <div className="flex items-center mb-4">
                   <div className="bg-black h-10 w-10 rounded-full flex items-center justify-center mr-4 text-white font-bold border border-gray-700">
@@ -203,7 +272,7 @@ export default function Home() {
       </motion.section>
 
       {/* Footer */}
-      <Footer />
+      <DynamicFooter />
     </div>
   )
 }

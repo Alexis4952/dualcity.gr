@@ -51,7 +51,6 @@ export default function ShopMLOItem({ product, openProductDetails }: ShopMLOItem
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
   const [isZoomed, setIsZoomed] = useState(false)
-  const [isImageZoomed, setIsImageZoomed] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const modalIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -154,13 +153,12 @@ export default function ShopMLOItem({ product, openProductDetails }: ShopMLOItem
       >
         <div className="relative h-72 bg-gray-900 cursor-pointer" onClick={handleImageClick}>
           {imageArray && imageArray.length > 0 ? (
-            <div className="w-full h-full relative group">
+            <div className="w-full h-full relative">
               <Image
                 src={imageArray[currentImageIndex]?.url || "/placeholder.svg?height=400&width=600&query=product"}
                 alt={title}
                 fill
                 style={{ objectFit: "cover" }}
-                className="transition-transform duration-300 group-hover:scale-110"
               />
 
               {/* Κουμπιά πλοήγησης εικόνων - διατηρούμε τα βελάκια */}
@@ -184,13 +182,6 @@ export default function ShopMLOItem({ product, openProductDetails }: ShopMLOItem
                   </Button>
                 </div>
               )}
-
-              {/* Zoom indicator */}
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="bg-black/70 text-white px-2 py-1 rounded text-xs">
-                  🔍 Κλικ για zoom
-                </div>
-              </div>
 
               {/* Ένδειξη τρέχουσας εικόνας */}
               {imageArray.length > 1 && (
@@ -303,45 +294,18 @@ export default function ShopMLOItem({ product, openProductDetails }: ShopMLOItem
           )}
 
           {/* Μεγεθυμένη εικόνα */}
-          <div className="relative w-full flex justify-center">
+          <div className="relative w-full" style={{ height: "75vh" }}>
             {imageArray && imageArray.length > 0 ? (
-              <div className="relative max-w-full max-h-[80vh] overflow-hidden rounded-lg">
-                <Image
-                  src={imageArray[currentImageIndex]?.url || "/placeholder.svg?height=800&width=1200&query=product"}
-                  alt={title}
-                  width={1200}
-                  height={800}
-                  style={{ 
-                    objectFit: "contain",
-                    maxWidth: "100%",
-                    maxHeight: "80vh",
-                    width: "auto",
-                    height: "auto",
-                    cursor: "zoom-in"
-                  }}
-                  className={`rounded-lg transition-all duration-300 ${
-                    isImageZoomed 
-                      ? "scale-150 cursor-zoom-out" 
-                      : "hover:scale-110 cursor-zoom-in"
-                  }`}
-                  priority
-                  onClick={() => setIsImageZoomed(!isImageZoomed)}
-                />
-                {isImageZoomed && (
-                  <div className="absolute top-2 right-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setIsImageZoomed(false)}
-                      className="bg-black/70 text-white border-gray-600 hover:bg-gray-800"
-                    >
-                      Reset Zoom
-                    </Button>
-                  </div>
-                )}
-              </div>
+              <Image
+                src={imageArray[currentImageIndex]?.url || "/placeholder.svg?height=800&width=1200&query=product"}
+                alt={title}
+                fill
+                style={{ objectFit: "contain" }}
+                className="rounded-lg"
+                priority
+              />
             ) : (
-              <div className="w-full h-64 flex items-center justify-center bg-gray-800 rounded-lg">
+              <div className="w-full h-full flex items-center justify-center bg-gray-800 rounded-lg">
                 <span className="text-gray-500">Δεν υπάρχει διαθέσιμη εικόνα</span>
               </div>
             )}

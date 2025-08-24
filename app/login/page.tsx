@@ -37,7 +37,7 @@ export default function Login() {
     try {
       const result = login(email, password)
 
-      if (result.success) {
+      if (result.success && result.role) {
         // Επιτυχής σύνδεση, ανακατεύθυνση στο κατάλληλο dashboard βάσει ρόλου
         // Αν υπάρχει redirect παράμετρος, χρησιμοποίησέ την, αλλιώς πήγαινε στο dashboard του ρόλου
         if (redirect) {
@@ -46,10 +46,7 @@ export default function Login() {
           // Ανακατεύθυνση βάσει ρόλου
           if (result.role === "ADMIN") {
             router.push("/admin")
-          } else if (result.role === "USER") {
-            router.push("/dashboard")
           } else {
-            // Fallback για άγνωστο ρόλο
             router.push("/dashboard")
           }
         }

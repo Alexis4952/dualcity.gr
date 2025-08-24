@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     if (checkError) {
       console.error("Error checking for existing admin:", checkError)
-      return NextResponse.json({ success: false, error: `Database error: ${checkError instanceof Error ? checkError.message : "Unknown error"}` }, { status: 500 })
+      return NextResponse.json({ success: false, error: `Database error: ${checkError.message}` }, { status: 500 })
     }
 
     // Αν υπάρχει ήδη ο αρχικός admin, επιστρέφουμε επιτυχία
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     if (createError) {
       console.error("Error creating admin:", createError)
       return NextResponse.json(
-        { success: false, error: `Failed to create admin: ${createError instanceof Error ? createError.message : "Unknown error"}` },
+        { success: false, error: `Failed to create admin: ${createError.message}` },
         { status: 500 },
       )
     }
@@ -56,11 +56,10 @@ export async function POST(request: Request) {
     )
   } catch (error) {
     console.error("Error in create-admin API:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         success: false,
-        error: `Internal server error: ${errorMessage}`,
+        error: `Internal server error: ${error.message || "Unknown error"}`,
       },
       { status: 500 },
     )

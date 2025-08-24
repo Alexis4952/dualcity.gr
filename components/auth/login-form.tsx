@@ -27,7 +27,7 @@ export default function LoginForm() {
     // Attempt login
     const result = login(email, password)
 
-    if (result.success) {
+    if (result.success && result.role) {
       // Redirect based on role
       if (result.role === "ADMIN") {
         window.location.href = "/admin"

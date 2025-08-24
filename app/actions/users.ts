@@ -61,8 +61,7 @@ export async function createUserAction(formData: FormData) {
 
     if (error) {
       console.error("Error creating user:", error)
-              const errorMessage = error instanceof Error ? error.message : "Unknown error"
-        return { success: false, error: `Σφάλμα κατά τη δημιουργία του χρήστη: ${errorMessage}` }
+      return { success: false, error: `Σφάλμα κατά τη δημιουργία του χρήστη: ${error.message}` }
     }
 
     return {
@@ -104,8 +103,7 @@ export async function updateUserRoleAction(userId: string, newRole: UserRole) {
 
     if (error) {
       console.error("Error updating user role:", error)
-              const errorMessage = error instanceof Error ? error.message : "Unknown error"
-        return { success: false, error: `Σφάλμα κατά την ενημέρωση του ρόλου: ${errorMessage}` }
+      return { success: false, error: `Σφάλμα κατά την ενημέρωση του ρόλου: ${error.message}` }
     }
 
     return { success: true }
@@ -124,8 +122,7 @@ export async function deleteUserAction(userId: string) {
 
     if (error) {
       console.error("Error deleting user:", error)
-              const errorMessage = error instanceof Error ? error.message : "Unknown error"
-        return { success: false, error: `Σφάλμα κατά τη διαγραφή του χρήστη: ${errorMessage}` }
+      return { success: false, error: `Σφάλμα κατά τη διαγραφή του χρήστη: ${error.message}` }
     }
 
     return { success: true }

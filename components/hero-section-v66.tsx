@@ -117,7 +117,7 @@ export default function HeroSectionV66() {
         >
           <Button
             className="bg-gradient-to-r from-cyan-900 to-cyan-700 hover:from-cyan-800 hover:to-cyan-600 text-white px-8 py-6 text-lg rounded-full relative overflow-hidden group"
-            onClick={() => window.open("https://cfx.re/join/o8lojy", "_blank")}
+            onClick={() => window.open("https://cfx.re/join/rj49b7", "_blank")}
           >
             Σύνδεση στον Server <ChevronRight className="ml-2 h-5 w-5" />
           </Button>
@@ -125,7 +125,7 @@ export default function HeroSectionV66() {
           <Button
             variant="outline"
             className="border-cyan-700 text-cyan-400 hover:bg-cyan-950 px-8 py-6 text-lg rounded-full relative overflow-hidden group"
-            onClick={() => window.open("https://discord.gg/PdMYvK7WGN", "_blank")}
+            onClick={() => window.open("https://discord.gg/ztH8UdKxGU", "_blank")}
           >
             <ExternalLink className="mr-2 h-5 w-5" /> Discord Community
           </Button>

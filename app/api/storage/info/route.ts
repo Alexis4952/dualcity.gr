@@ -6,8 +6,8 @@ export async function GET() {
   try {
     console.log("Storage info API called")
 
-    // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
     const cookieStore = await cookies()
+    // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
     const adminId = cookieStore.get("adminId")?.value
     const adminUsername = cookieStore.get("adminUsername")?.value
 
@@ -26,7 +26,7 @@ export async function GET() {
     if (bucketsError) {
       console.error("Error listing buckets:", bucketsError)
       return NextResponse.json(
-        { success: false, error: `Σφάλμα κατά τη λήψη λίστας buckets: ${bucketsError instanceof Error ? bucketsError.message : "Unknown error"}` },
+        { success: false, error: `Σφάλμα κατά τη λήψη λίστας buckets: ${bucketsError.message}` },
         { status: 500 },
       )
     }
@@ -48,7 +48,7 @@ export async function GET() {
             name: bucket.name,
             size: 0,
             files: 0,
-            error: filesError instanceof Error ? filesError.message : "Unknown error",
+            error: filesError.message,
           })
           continue
         }
@@ -67,12 +67,11 @@ export async function GET() {
         totalSize += estimatedSize
       } catch (error) {
         console.error(`Error processing bucket ${bucket.name}:`, error)
-        const errorMessage = error instanceof Error ? error.message : "Unknown error"
         bucketsInfo.push({
           name: bucket.name,
           size: 0,
           files: 0,
-          error: errorMessage,
+          error: error.message,
         })
       }
     }
@@ -93,7 +92,6 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Unexpected error in storage info API:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
-    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${errorMessage}` }, { status: 500 })
+    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${error.message}` }, { status: 500 })
   }
 }

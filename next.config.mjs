@@ -15,7 +15,7 @@ const nextConfig = {
   // Προσθήκη compression για καλύτερη απόδοση
   compress: true,
   // Προσθήκη βελτιστοποιήσεων για παραγωγή
-  // swcMinify: true, // Αφαιρέθηκε για συμβατότητα με Next.js 15
+  swcMinify: true,
   // Προσθήκη βελτιστοποιήσεων για το compiler
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {

@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     if (uploadError) {
       console.error("Error uploading file:", uploadError)
       return NextResponse.json(
-        { success: false, message: "Σφάλμα κατά το ανέβασμα του αρχείου", error: uploadError instanceof Error ? uploadError.message : "Unknown error" },
+        { success: false, message: "Σφάλμα κατά το ανέβασμα του αρχείου", error: uploadError.message },
         { status: 500 },
       )
     }
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     if (imageError) {
       console.error("Error saving image data:", imageError)
       return NextResponse.json(
-        { success: false, message: "Σφάλμα κατά την αποθήκευση των δεδομένων της εικόνας", error: imageError instanceof Error ? imageError.message : "Unknown error" },
+        { success: false, message: "Σφάλμα κατά την αποθήκευση των δεδομένων της εικόνας", error: imageError.message },
         { status: 500 },
       )
     }

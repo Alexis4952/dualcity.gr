@@ -13,7 +13,7 @@ export async function GET() {
         {
           success: false,
           message: "Σφάλμα κατά τον έλεγχο των buckets",
-          error: listError instanceof Error ? listError.message : "Unknown error",
+          error: listError.message,
         },
         { status: 500 },
       )
@@ -38,7 +38,7 @@ export async function GET() {
         {
           success: false,
           message: "Σφάλμα κατά τη δημιουργία του bucket",
-          error: createError instanceof Error ? createError.message : "Unknown error",
+          error: createError.message,
         },
         { status: 500 },
       )

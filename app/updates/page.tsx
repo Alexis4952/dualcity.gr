@@ -258,13 +258,13 @@ export default function UpdatesPage() {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
-                onClick={() => window.open("https://discord.gg/PdMYvK7WGN", "_blank")}
+                onClick={() => window.open("https://discord.gg/ztH8UdKxGU", "_blank")}
               >
                 Discord Community
               </Button>
               <Button
                 className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
-                onClick={() => window.open("https://cfx.re/join/o8lojy", "_blank")}
+                onClick={() => window.open("https://cfx.re/join/rj49b7", "_blank")}
               >
                 Σύνδεση στον Server
               </Button>

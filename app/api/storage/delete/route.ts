@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
+import { NextRequest } from "next/server"
 
 export async function POST(request: Request) {
   try {
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
     if (filesError) {
       console.error(`Error listing files in bucket ${bucket}:`, filesError)
       return NextResponse.json(
-        { success: false, error: `Σφάλμα κατά τη λήψη λίστας αρχείων: ${filesError instanceof Error ? filesError.message : "Unknown error"}` },
+        { success: false, error: `Σφάλμα κατά τη λήψη λίστας αρχείων: ${filesError.message}` },
         { status: 500 },
       )
     }
@@ -55,15 +56,14 @@ export async function POST(request: Request) {
 
           if (deleteError) {
             console.error(`Error deleting file ${file.name}:`, deleteError)
-            errors.push({ file: file.name, error: deleteError instanceof Error ? deleteError.message : "Unknown error" })
+            errors.push({ file: file.name, error: deleteError.message })
           } else {
             deletedCount++
           }
         }
       } catch (error) {
         console.error(`Error processing file deletion for ${file.name}:`, error)
-        const errorMessage = error instanceof Error ? error.message : "Unknown error"
-        errors.push({ file: file.name, error: errorMessage })
+        errors.push({ file: file.name, error: error.message })
       }
     }
 
@@ -97,7 +97,6 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     console.error("Unexpected error in storage delete API:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
-    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${errorMessage}` }, { status: 500 })
+    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${error.message}` }, { status: 500 })
   }
 }

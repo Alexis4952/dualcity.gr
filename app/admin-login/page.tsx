@@ -83,8 +83,7 @@ export default function AdminLoginPage() {
       }
     } catch (error) {
       console.error("Unexpected login error:", error)
-      const errorMessage = error instanceof Error ? error.message : "Unknown error"
-      setError(`Απρόσμενο σφάλμα κατά τη σύνδεση: ${errorMessage}`)
+      setError(`Απρόσμενο σφάλμα κατά τη σύνδεση: ${error instanceof Error ? error.message : "Unknown error"}`)
       setSuccess("") // Καθαρίζουμε το μήνυμα επιτυχίας μόνο σε περίπτωση σφάλματος
     } finally {
       setLoading(false)
@@ -129,8 +128,7 @@ export default function AdminLoginPage() {
       }
     } catch (error) {
       console.error("Error resetting admin password:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
-      setError(`Σφάλμα: ${errorMessage}`)
+      setError(`Σφάλμα: ${error instanceof Error ? error.message : "Άγνωστο σφάλμα"}`)
     } finally {
       setResetLoading(false)
     }

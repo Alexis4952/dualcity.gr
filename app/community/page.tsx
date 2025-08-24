@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import BackButton from "@/components/back-button"
 
 // Discord link
-const DISCORD_LINK = "https://discord.gg/PdMYvK7WGN"
+const DISCORD_LINK = "https://discord.gg/na233ERvdr"
 
 export default function CommunityPage() {
   // Animation variants
@@ -148,7 +148,7 @@ export default function CommunityPage() {
               </button>
               <button
                 className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-3 rounded-md font-medium transition-all duration-300 transform hover:scale-105"
-                onClick={() => window.open("https://cfx.re/join/o8lojy", "_blank")}
+                onClick={() => window.open("https://cfx.re/join/rj49b7", "_blank")}
               >
                 Σύνδεση στον Server
               </button>

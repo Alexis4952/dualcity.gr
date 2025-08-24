@@ -2,11 +2,8 @@ import { NextResponse } from "next/server"
 import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
-    console.log("Storage optimize API called")
-
-    // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
     const cookieStore = await cookies()
     const adminId = cookieStore.get("adminId")?.value
     const adminUsername = cookieStore.get("adminUsername")?.value
@@ -51,7 +48,6 @@ export async function POST() {
     })
   } catch (error) {
     console.error("Unexpected error in storage optimize API:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
-    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${errorMessage}` }, { status: 500 })
+    return NextResponse.json({ success: false, error: `Απρόσμενο σφάλμα: ${error.message}` }, { status: 500 })
   }
 }

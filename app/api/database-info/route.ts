@@ -41,12 +41,11 @@ export async function GET() {
             error: error ? error.message : null,
           }
         } catch (e) {
-          const errorMessage = e instanceof Error ? e.message : "Unknown error"
           return {
             name: table.name,
             description: table.description,
             count: null,
-            error: errorMessage,
+            error: e.message,
           }
         }
       }),
@@ -64,11 +63,10 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Error getting database info:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         status: "error",
-        error: errorMessage,
+        error: error.message || "Unknown error",
       },
       { status: 500 },
     )

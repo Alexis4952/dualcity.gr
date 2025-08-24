@@ -10,8 +10,7 @@ export async function GET() {
 
     if (error) {
       console.error("Error fetching admins:", error)
-      const errorMessage = error instanceof Error ? error.message : "Unknown error"
-      return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 })
     }
 
     // Επιστρέφουμε τους admin (μόνο για debugging)

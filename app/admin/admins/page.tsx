@@ -12,12 +12,11 @@ import Link from "next/link"
 import { createAdminAction, deleteAdminAction, getAdminsAction } from "@/app/actions/admin"
 import { isAdminLoggedIn } from "@/lib/admin-auth"
 import type { Admin } from "@/app/actions/admin"
-import { useActionState } from "react"
 
 // Αρχική κατάσταση για το form state
 const initialState = {
   success: false,
-  error: null,
+  error: null as string | null,
   admin: null as any,
 }
 
@@ -25,7 +24,7 @@ export default function AdminUsersPage() {
   const [admins, setAdmins] = useState<Admin[]>([])
   const [loading, setLoading] = useState(true)
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null)
-  const [formState, formAction] = useActionState(createAdminAction, initialState)
+  const [formState, setFormState] = useState(initialState)
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
   const router = useRouter()
 
@@ -83,6 +82,19 @@ export default function AdminUsersPage() {
     }
   }
 
+  const handleCreateAdmin = async (formData: FormData) => {
+    try {
+      const result = await createAdminAction(null, formData)
+      setFormState(result)
+    } catch (error) {
+      setFormState({
+        success: false,
+        error: "Σφάλμα κατά τη δημιουργία του admin",
+        admin: null
+      })
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -121,7 +133,7 @@ export default function AdminUsersPage() {
                 <CardTitle className="text-xl text-white">Προσθήκη Νέου Admin</CardTitle>
               </CardHeader>
               <CardContent>
-                <form action={formAction} className="space-y-4">
+                <form action={handleCreateAdmin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="username">Username</Label>
                     <Input id="username" name="username" className="bg-gray-700 border-gray-600" required />

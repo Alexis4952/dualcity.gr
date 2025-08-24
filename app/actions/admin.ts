@@ -131,10 +131,9 @@ export async function loginAdminAction(username: string, password: string) {
     }
   } catch (error) {
     console.error("Unexpected error during admin login:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return {
       success: false,
-      error: `Απρόσμενο σφάλμα κατά τη σύνδεση: ${errorMessage}`,
+      error: `Απρόσμενο σφάλμα κατά τη σύνδεση: ${error instanceof Error ? error.message : "Unknown error"}`,
     }
   }
 }

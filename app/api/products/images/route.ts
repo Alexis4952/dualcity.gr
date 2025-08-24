@@ -142,7 +142,7 @@ export async function DELETE(request: NextRequest) {
       const urlParts = url.split("/")
       const bucketName = "images"
       // Το path είναι συνήθως μετά το όνομα του bucket στο URL
-      const bucketIndex = urlParts.findIndex((part: string) => part === bucketName)
+      const bucketIndex = urlParts.findIndex((part) => part === bucketName)
       if (bucketIndex !== -1 && bucketIndex < urlParts.length - 1) {
         const path = urlParts.slice(bucketIndex + 1).join("/")
         await supabase.storage.from(bucketName).remove([path])

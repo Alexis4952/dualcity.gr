@@ -29,7 +29,7 @@ export async function GET() {
       return NextResponse.json(
         {
           status: "error",
-          error: error instanceof Error ? error.message : "Unknown error",
+          error: error.message,
           count: 0,
         },
         { status: 500 },
@@ -42,11 +42,10 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Unexpected error counting products:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
       {
         status: "error",
-        error: errorMessage,
+        error: error.message || "Unknown error",
         count: 0,
       },
       { status: 500 },

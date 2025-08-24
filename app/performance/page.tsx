@@ -184,7 +184,7 @@ export default function PerformancePage() {
               </Button>
               <Button
                 className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white"
-                onClick={() => window.open("https://cfx.re/join/o8lojy", "_blank")}
+                onClick={() => window.open("https://cfx.re/join/rj49b7", "_blank")}
               >
                 Σύνδεση στον Server
               </Button>

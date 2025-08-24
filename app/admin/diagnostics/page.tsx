@@ -78,8 +78,7 @@ export default function AdminDiagnosticsPage() {
       await fetchDatabaseInfo()
     } catch (err) {
       console.error("Error running diagnostics:", err)
-      const errorMessage = err instanceof Error ? err.message : "Άγνωστο σφάλμα"
-      setError(`Σφάλμα κατά την εκτέλεση διαγνωστικών: ${errorMessage}`)
+      setError(`Σφάλμα κατά την εκτέλεση διαγνωστικών: ${err.message || "Άγνωστο σφάλμα"}`)
     } finally {
       setLoading(false)
     }
@@ -104,8 +103,7 @@ export default function AdminDiagnosticsPage() {
       setDbInfo(data)
     } catch (err) {
       console.error("Error fetching database info:", err)
-      const errorMessage = err instanceof Error ? err.message : "Άγνωστο σφάλμα"
-      setError(`Σφάλμα κατά την ανάκτηση πληροφοριών για τη βάση δεδομένων: ${errorMessage}`)
+      setError(`Σφάλμα κατά την ανάκτηση πληροφοριών για τη βάση δεδομένων: ${err.message || "Άγνωστο σφάλμα"}`)
     } finally {
       setLoadingDbInfo(false)
     }
@@ -141,11 +139,10 @@ export default function AdminDiagnosticsPage() {
       }
     } catch (error) {
       console.error("Error checking environment variables:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
       return {
         name: "Έλεγχος Μεταβλητών Περιβάλλοντος",
         success: false,
-        message: `Σφάλμα: ${errorMessage}`,
+        message: `Σφάλμα: ${error.message || "Άγνωστο σφάλμα"}`,
         details: error,
       }
     }
@@ -195,11 +192,10 @@ export default function AdminDiagnosticsPage() {
       }
     } catch (error) {
       console.error("Error checking admin auth:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
       return {
         name: "Έλεγχος Admin Σύνδεσης",
         success: false,
-        message: `Σφάλμα: ${errorMessage}`,
+        message: `Σφάλμα: ${error.message || "Άγνωστο σφάλμα"}`,
         details: error,
       }
     }
@@ -251,11 +247,10 @@ export default function AdminDiagnosticsPage() {
       }
     } catch (error) {
       console.error("Error checking database connection:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
       return {
         name: "Έλεγχος Σύνδεσης Βάσης Δεδομένων",
         success: false,
-        message: `Σφάλμα: ${errorMessage}`,
+        message: `Σφάλμα: ${error.message || "Άγνωστο σφάλμα"}`,
         details: error,
       }
     }
@@ -320,11 +315,10 @@ export default function AdminDiagnosticsPage() {
       }
     } catch (error) {
       console.error("Error checking storage access:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
       return {
         name: "Έλεγχος Πρόσβασης Storage",
         success: false,
-        message: `Σφάλμα: ${errorMessage}`,
+        message: `Σφάλμα: ${error.message || "Άγνωστο σφάλμα"}`,
         details: error,
       }
     }
@@ -389,11 +383,10 @@ export default function AdminDiagnosticsPage() {
       }
     } catch (error) {
       console.error("Error checking admins access:", error)
-      const errorMessage = error instanceof Error ? error.message : "Άγνωστο σφάλμα"
       return {
         name: "Έλεγχος Πρόσβασης Admin",
         success: false,
-        message: `Σφάλμα: ${errorMessage}`,
+        message: `Σφάλμα: ${error.message || "Άγνωστο σφάλμα"}`,
         details: error,
       }
     }

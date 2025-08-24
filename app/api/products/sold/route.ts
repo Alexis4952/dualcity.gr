@@ -85,7 +85,7 @@ export async function POST(request: Request) {
           {
             success: false,
             error: "Failed to update product sold status",
-            details: error instanceof Error ? error.message : "Unknown error",
+            details: error.message,
           },
           { status: 500 },
         )

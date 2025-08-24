@@ -32,7 +32,7 @@ export async function DELETE(request: NextRequest) {
         {
           success: false,
           message: "Σφάλμα κατά την ανάκτηση των εικόνων του προϊόντος",
-          error: imageError instanceof Error ? imageError.message : "Unknown error",
+          error: imageError.message,
         },
         { status: 500 },
       )
@@ -64,7 +64,7 @@ export async function DELETE(request: NextRequest) {
         {
           success: false,
           message: "Σφάλμα κατά τη διαγραφή των εικόνων από τη βάση δεδομένων",
-          error: deleteError instanceof Error ? deleteError.message : "Unknown error",
+          error: deleteError.message,
         },
         { status: 500 },
       )

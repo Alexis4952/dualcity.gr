@@ -21,8 +21,7 @@ export async function GET() {
 
     if (error) {
       console.error("Error fetching products:", error)
-      const errorMessage = error instanceof Error ? error.message : "Unknown error"
-      return NextResponse.json({ error: errorMessage }, { status: 500 })
+      return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
     // Για κάθε προϊόν, παίρνουμε την κύρια εικόνα του

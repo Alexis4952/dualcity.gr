@@ -68,8 +68,7 @@ export default function AdminStoragePage() {
       }
     } catch (err) {
       console.error("Error fetching storage info:", err)
-      const errorMessage = err instanceof Error ? err.message : "Δεν ήταν δυνατή η λήψη πληροφοριών αποθήκευσης"
-      setError(`Σφάλμα: ${errorMessage}`)
+      setError(`Σφάλμα: ${err.message || "Δεν ήταν δυνατή η λήψη πληροφοριών αποθήκευσης"}`)
     } finally {
       setLoading(false)
     }
@@ -108,8 +107,7 @@ export default function AdminStoragePage() {
       }
     } catch (err) {
       console.error("Error optimizing images:", err)
-      const errorMessage = err instanceof Error ? err.message : "Δεν ήταν δυνατή η βελτιστοποίηση εικόνων"
-      setError(`Σφάλμα: ${errorMessage}`)
+      setError(`Σφάλμα: ${err.message || "Δεν ήταν δυνατή η βελτιστοποίηση εικόνων"}`)
     } finally {
       setOptimizing(false)
     }
@@ -152,8 +150,7 @@ export default function AdminStoragePage() {
       }
     } catch (err) {
       console.error(`Error deleting bucket ${bucketName}:`, err)
-      const errorMessage = err instanceof Error ? err.message : `Δεν ήταν δυνατή η διαγραφή αρχείων από το bucket "${bucketName}"`
-      setError(`Σφάλμα: ${errorMessage}`)
+      setError(`Σφάλμα: ${err.message || `Δεν ήταν δυνατή η διαγραφή αρχείων από το bucket "${bucketName}"`}`)
     } finally {
       setDeleting(null)
     }

@@ -25,7 +25,7 @@ export default function Navbar() {
     setUserLoggedIn(isLoggedIn())
   }, [])
 
-  const DISCORD_LINK = "https://discord.gg/PdMYvK7WGN"
+  const DISCORD_LINK = "https://discord.gg/na233ERvdr"
 
   const navLinks = [
     { name: "Αρχική", href: "/" },

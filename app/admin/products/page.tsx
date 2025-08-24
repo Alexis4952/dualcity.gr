@@ -253,7 +253,7 @@ export default function ProductsPage() {
         console.log(`Fetched ${data.products.length} products`)
         console.log(
           "Products with sold status:",
-          data.products.filter((p: any) => p.sold).map((p: any) => p.id),
+          data.products.filter((p) => p.sold).map((p) => p.id),
         )
         setProducts(data.products)
       } else {
@@ -880,11 +880,11 @@ export default function ProductsPage() {
           product.id === selectedProductId
             ? {
                 ...product,
-                discount_percentage: discountValue || undefined,
-                discount_price: data.data?.discount_price || undefined,
-                on_sale: data.data?.on_sale || false,
-                discount_start_date: startDateISO || undefined,
-                discount_end_date: endDateISO || undefined,
+                discount_percentage: discountValue,
+                discount_price: data.data?.discount_price,
+                on_sale: data.data?.on_sale,
+                discount_start_date: startDateISO,
+                discount_end_date: endDateISO,
               }
             : product,
         ),
@@ -949,10 +949,10 @@ export default function ProductsPage() {
             ? {
                 ...product,
                 on_sale: false,
-                discount_percentage: undefined,
-                discount_price: undefined,
-                discount_start_date: undefined,
-                discount_end_date: undefined,
+                discount_percentage: null,
+                discount_price: null,
+                discount_start_date: null,
+                discount_end_date: null,
               }
             : product,
         ),

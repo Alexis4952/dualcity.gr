@@ -39,7 +39,7 @@ export async function GET() {
     if (bucketsError) {
       console.error("Error listing buckets:", bucketsError)
       return NextResponse.json(
-        { success: false, message: "Σφάλμα κατά τον έλεγχο των buckets", error: bucketsError instanceof Error ? bucketsError.message : "Unknown error" },
+        { success: false, message: "Σφάλμα κατά τον έλεγχο των buckets", error: bucketsError.message },
         { status: 500 },
       )
     }
@@ -59,7 +59,7 @@ export async function GET() {
     if (error) {
       console.error("Error creating bucket:", error)
       return NextResponse.json(
-        { success: false, message: "Σφάλμα κατά τη δημιουργία του bucket", error: error instanceof Error ? error.message : "Unknown error" },
+        { success: false, message: "Σφάλμα κατά τη δημιουργία του bucket", error: error.message },
         { status: 500 },
       )
     }

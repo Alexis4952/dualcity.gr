@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (productError) {
       console.error("Error updating product:", productError)
       return NextResponse.json(
-        { success: false, message: "Σφάλμα κατά την ενημέρωση του προϊόντος", error: productError instanceof Error ? productError.message : "Unknown error" },
+        { success: false, message: "Σφάλμα κατά την ενημέρωση του προϊόντος", error: productError.message },
         { status: 500 },
       )
     }

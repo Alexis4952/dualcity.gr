@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react"
 
 export default function Footer() {
   // Discord server URL
-  const DISCORD_URL = "https://discord.gg/PdMYvK7WGN"
+  const DISCORD_URL = "https://discord.gg/na233ERvdr"
 
   return (
     <footer className="py-6 relative z-10 border-t border-gray-800 bg-[#030014] mt-auto">
