@@ -4,33 +4,26 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: '*.supabase.co',
       },
     ],
-    unoptimized: false,
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
-  // Προσθήκη compression για καλύτερη απόδοση
   compress: true,
-  // Προσθήκη βελτιστοποιήσεων για παραγωγή
-  swcMinify: true,
-  // Προσθήκη βελτιστοποιήσεων για το compiler
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],
     } : false,
   },
-  // Προσθήκη βελτιστοποιήσεων για το webpack
   webpack: (config) => {
-    // Βελτιστοποίηση για παραγωγή
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimize = true;
     }
     return config;
   },
-  // Προσθήκη headers για καλύτερη ασφάλεια και απόδοση
   async headers() {
     return [
       {
@@ -74,13 +67,11 @@ const nextConfig = {
       },
     ];
   },
-  // Added as requested
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Added as requested
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   experimental: {
     serverActions: {

@@ -2,12 +2,16 @@ import { type NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 
-export const dynamic = "force-dynamic" // Εξασφαλίζει ότι το endpoint δεν κάνει cache
-export const revalidate = 0 // Απενεργοποιεί το caching
+export const dynamic = "force-dynamic"
+export const revalidate = 0
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+interface RouteParams {
+  params: Promise<{ id: string }>
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
   try {
-    const id = params.id
+    const { id } = await context.params
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
@@ -15,10 +19,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     const supabase = createClient()
 
-    // Για λόγους debugging
     console.log("Fetching product with ID:", id)
 
-    // Ανάκτηση προϊόντος από τη βάση δεδομένων
     const { data: product, error } = await supabase.from("products").select("*").eq("id", id).single()
 
     if (error) {
@@ -30,10 +32,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Product not found" }, { status: 404 })
     }
 
-    // Για λόγους debugging
     console.log("Product found:", product)
 
-    // Ανάκτηση εικόνων του προϊόντος
     const { data: images, error: imagesError } = await supabase
       .from("product_images")
       .select("*")
@@ -44,7 +44,6 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       console.error("Error fetching product images:", imagesError)
     }
 
-    // Για λόγους debugging
     console.log("Images found:", images?.length || 0)
 
     return NextResponse.json({ product, images: images || [] })
@@ -54,10 +53,9 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-// Προσθήκη μεθόδου PUT για ενημέρωση προϊόντος
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: RouteParams) {
   try {
-    const id = params.id
+    const { id } = await context.params
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
@@ -68,7 +66,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     console.log("Updating product with ID:", id, "Data:", data)
 
-    // Προσθήκη του updated_at αν δεν υπάρχει
     if (!data.updated_at) {
       data.updated_at = new Date().toISOString()
     }
@@ -80,7 +77,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Failed to update product", details: error }, { status: 500 })
     }
 
-    // Revalidate paths to ensure fresh data
     revalidatePath("/shop")
     revalidatePath("/admin/products")
     revalidatePath(`/shop/${id}`)

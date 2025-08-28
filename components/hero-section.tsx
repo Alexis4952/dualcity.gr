@@ -1,203 +1,96 @@
-"use client"
-
-import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ChevronRight } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Play, MessageCircle } from "lucide-react"
 import Image from "next/image"
 
 export default function HeroSection() {
-  const [scrollY, setScrollY] = useState(0)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const particlesRef = useRef<Particle[]>([])
-  const animationRef = useRef<number>(0)
-
-  // Particle class
-  class Particle {
-    x: number
-    y: number
-    size: number
-    speedX: number
-    speedY: number
-    color: string
-
-    constructor(canvas: HTMLCanvasElement) {
-      this.x = Math.random() * canvas.width
-      this.y = Math.random() * canvas.height
-      this.size = Math.random() * 3 + 1
-      this.speedX = Math.random() * 2 - 1
-      this.speedY = Math.random() * 2 - 1
-      this.color = `rgba(${Math.floor(Math.random() * 160) + 95}, ${Math.floor(Math.random() * 160) + 95}, ${
-        Math.floor(Math.random() * 160) + 95
-      }, ${Math.random() * 0.5 + 0.2})`
-    }
-
-    update(canvas: HTMLCanvasElement) {
-      this.x += this.speedX
-      this.y += this.speedY
-
-      if (this.x > canvas.width || this.x < 0) {
-        this.speedX = -this.speedX
-      }
-      if (this.y > canvas.height || this.y < 0) {
-        this.speedY = -this.speedY
-      }
-    }
-
-    draw(ctx: CanvasRenderingContext2D) {
-      ctx.fillStyle = this.color
-      ctx.beginPath()
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-      ctx.fill()
-    }
-  }
-
-  // Initialize particles
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-
-      // Reinitialize particles
-      particlesRef.current = []
-      for (let i = 0; i < 100; i++) {
-        particlesRef.current.push(new Particle(canvas))
-      }
-    }
-
-    handleResize()
-    window.addEventListener("resize", handleResize)
-
-    // Animation loop
-    const animate = () => {
-      const ctx = canvas.getContext("2d")
-      if (!ctx) return
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      particlesRef.current.forEach((particle) => {
-        particle.update(canvas)
-        particle.draw(ctx)
-      })
-
-      // Connect particles with lines
-      connectParticles(ctx)
-
-      animationRef.current = requestAnimationFrame(animate)
-    }
-
-    const connectParticles = (ctx: CanvasRenderingContext2D) => {
-      const maxDistance = 150
-      for (let a = 0; a < particlesRef.current.length; a++) {
-        for (let b = a; b < particlesRef.current.length; b++) {
-          const dx = particlesRef.current[a].x - particlesRef.current[b].x
-          const dy = particlesRef.current[a].y - particlesRef.current[b].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < maxDistance) {
-            const opacity = 1 - distance / maxDistance
-            ctx.strokeStyle = `rgba(150, 150, 255, ${opacity * 0.2})`
-            ctx.lineWidth = 1
-            ctx.beginPath()
-            ctx.moveTo(particlesRef.current[a].x, particlesRef.current[a].y)
-            ctx.lineTo(particlesRef.current[b].x, particlesRef.current[b].y)
-            ctx.stroke()
-          }
-        }
-      }
-    }
-
-    animate()
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-      cancelAnimationFrame(animationRef.current)
-    }
-  }, [])
-
-  // Parallax effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Particle canvas background */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
-
-      {/* Parallax elements */}
-      <div
-        className="absolute inset-0 z-10 opacity-20"
-        style={{
-          backgroundImage: "url('/images/city-silhouette.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center bottom",
-          transform: `translateY(${scrollY * 0.2}px)`,
-        }}
-      />
-
-      <div
-        className="absolute inset-0 z-20 opacity-30"
-        style={{
-          backgroundImage: "url('/images/grid.png')",
-          backgroundSize: "cover",
-          transform: `translateY(${scrollY * 0.1}px)`,
-        }}
-      />
-
+    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
       {/* Content */}
-      <div className="container relative z-30 text-center px-4">
-        <div className="flex flex-col items-center justify-center">
-          {/* Animated Logo */}
-          <div className="mb-8 animate-float">
-            <Image src="/images/new-logo.png" alt="Dual City Logo" width={180} height={180} />
-          </div>
+      <div className="relative z-10 text-center max-w-4xl mx-auto">
+        {/* Server Status Badge */}
+        <div className="mb-8">
+          <Badge variant="outline" className="bg-green-500/20 border-green-500 text-green-400 px-4 py-2 text-sm">
+            <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+            Server Online - 247/500 παίκτες
+          </Badge>
+        </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 relative">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-pink-600 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
-              Dual City
-            </span>
-            <span className="absolute -inset-x-1 -inset-y-1 bg-gradient-to-r from-cyan-400 to-pink-600 opacity-20 blur-md -z-10"></span>
-          </h1>
+        {/* Logo */}
+        <div className="mb-8">
+          <Image
+            src="/images/dual-city-logo.png"
+            alt="Dual City Logo"
+            width={200}
+            height={200}
+            className="mx-auto"
+            priority
+          />
+        </div>
 
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl text-gray-300">
-            Ζήστε την απόλυτη εμπειρία roleplay στον πιο προηγμένο FiveM server
-          </p>
+        {/* Main Title */}
+        <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          Dual City
+        </h1>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 text-lg rounded-full relative overflow-hidden group"
-              onClick={() => window.open("https://cfx.re/join/o8lojy", "_blank")}
-            >
-              <span className="absolute top-0 left-0 w-full h-full bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
-              Σύνδεση στον Server <ChevronRight className="ml-2 h-5 w-5" />
-            </Button>
+        {/* Subtitle */}
+        <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          Ζήστε την απόλυτη εμπειρία FiveM Roleplay
+        </p>
 
-            <Button
-              variant="outline"
-              className="border-cyan-500 text-cyan-400 hover:bg-cyan-950/50 px-8 py-6 text-lg rounded-full relative overflow-hidden group bg-transparent"
-              onClick={() => window.open("https://discord.gg/PdMYvK7WGN", "_blank")}
-            >
-              <span className="absolute top-0 left-0 w-full h-full bg-cyan-500/10 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+        {/* Description */}
+        <p className="text-lg text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+          Ένας προηγμένος FiveM server με custom jobs, realistic economy, και μια ενεργή κοινότητα που περιμένει να σας
+          υποδεχτεί.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            asChild
+          >
+            <a href="https://cfx.re/join/o8lojy" target="_blank" rel="noopener noreferrer">
+              <Play className="mr-2 h-5 w-5" />
+              Σύνδεση στον Server
+            </a>
+          </Button>
+
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 bg-transparent"
+            asChild
+          >
+            <a href="https://discord.gg/PdMYvK7WGN" target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="mr-2 h-5 w-5" />
               Discord Community
-            </Button>
+            </a>
+          </Button>
+        </div>
+
+        {/* Server Info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
+            <div className="text-2xl font-bold text-cyan-400">24/7</div>
+            <div className="text-gray-300 text-sm">Online</div>
+          </div>
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
+            <div className="text-2xl font-bold text-purple-400">500+</div>
+            <div className="text-gray-300 text-sm">Slots</div>
+          </div>
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
+            <div className="text-2xl font-bold text-pink-400">EU</div>
+            <div className="text-gray-300 text-sm">Location</div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 animate-bounce">
-        <div className="w-8 h-12 rounded-full border-2 border-white/30 flex justify-center">
-          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-        </div>
-      </div>
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-pink-500/10 rounded-full blur-xl animate-pulse delay-500"></div>
     </section>
   )
 }
