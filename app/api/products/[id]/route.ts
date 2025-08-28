@@ -5,9 +5,9 @@ import { revalidatePath } from "next/cache"
 export const dynamic = "force-dynamic" // Εξασφαλίζει ότι το endpoint δεν κάνει cache
 export const revalidate = 0 // Απενεργοποιεί το caching
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = await params
+    const id = params.id
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
@@ -55,9 +55,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 }
 
 // Προσθήκη μεθόδου PUT για ενημέρωση προϊόντος
-export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { id } = await params
+    const id = params.id
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 })

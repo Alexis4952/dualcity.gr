@@ -106,15 +106,14 @@ export async function loginAdminAction(username: string, password: string) {
     await logAdminActionServer(admin.id, "login", { username: admin.username })
 
     // Αποθήκευση του admin token σε cookie
-    const cookieStore = await cookies()
-    cookieStore.set("adminId", admin.id, {
+    cookies().set("adminId", admin.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7, // 1 εβδομάδα
       path: "/",
     })
 
-    cookieStore.set("adminUsername", admin.username, {
+    cookies().set("adminUsername", admin.username, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7, // 1 εβδομάδα
@@ -133,7 +132,7 @@ export async function loginAdminAction(username: string, password: string) {
     console.error("Unexpected error during admin login:", error)
     return {
       success: false,
-      error: `Απρόσμενο σφάλμα κατά τη σύνδεση: ${error instanceof Error ? error.message : "Unknown error"}`,
+      error: `Απρόσμενο σφάλμα κατά τη σύνδεση: ${error.message || "Unknown error"}`,
     }
   }
 }
@@ -188,8 +187,7 @@ export async function createAdminAction(prevState: any, formData: FormData) {
     const supabase = createSupabaseAdminClient()
 
     // Παίρνουμε το ID του τρέχοντος admin από τα cookies
-    const cookieStore = await cookies()
-    const adminId = cookieStore.get("adminId")?.value
+    const adminId = cookies().get("adminId")?.value
     if (!adminId) {
       return { success: false, error: "Δεν είστε συνδεδεμένος ως admin", admin: null }
     }
@@ -249,8 +247,7 @@ export async function deleteAdminAction(adminId: string) {
     const supabase = createSupabaseAdminClient()
 
     // Παίρνουμε το ID του τρέχοντος admin από τα cookies
-    const cookieStore = await cookies()
-    const currentAdminId = cookieStore.get("adminId")?.value
+    const currentAdminId = cookies().get("adminId")?.value
     if (!currentAdminId) {
       return { success: false, error: "Δεν είστε συνδεδεμένος ως admin" }
     }
@@ -325,17 +322,15 @@ export async function getAdminLogsAction() {
 
 // Server action για την αποσύνδεση admin
 export async function logoutAdminAction() {
-  const cookieStore = await cookies()
-  cookieStore.delete("adminId")
-  cookieStore.delete("adminUsername")
+  cookies().delete("adminId")
+  cookies().delete("adminUsername")
   return { success: true }
 }
 
 // Server action για τον έλεγχο αν ο χρήστης είναι συνδεδεμένος ως admin
 export async function checkAdminAuthAction() {
-  const cookieStore = await cookies()
-  const adminId = cookieStore.get("adminId")?.value
-  const adminUsername = cookieStore.get("adminUsername")?.value
+  const adminId = cookies().get("adminId")?.value
+  const adminUsername = cookies().get("adminUsername")?.value
 
   if (!adminId || !adminUsername) {
     return { isLoggedIn: false, admin: null }

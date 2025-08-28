@@ -2,11 +2,13 @@ import { NextResponse } from "next/server"
 import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
-    const cookieStore = await cookies()
-    const adminId = cookieStore.get("adminId")?.value
-    const adminUsername = cookieStore.get("adminUsername")?.value
+    console.log("Storage optimize API called")
+
+    // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
+    const adminId = cookies().get("adminId")?.value
+    const adminUsername = cookies().get("adminUsername")?.value
 
     if (!adminId || !adminUsername) {
       console.error("Storage optimize API: User not authenticated as admin")

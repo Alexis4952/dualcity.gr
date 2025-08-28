@@ -7,10 +7,9 @@ import Link from "next/link"
 import { V66Background } from "@/components/v66-background"
 import Navbar from "@/components/navbar"
 
-export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const product = await getProductById(id)
-  const images = await getProductImages(id)
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  const product = await getProductById(params.id)
+  const images = await getProductImages(params.id)
 
   if (!product) {
     notFound()

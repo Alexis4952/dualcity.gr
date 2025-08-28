@@ -37,7 +37,7 @@ export default function Login() {
     try {
       const result = login(email, password)
 
-      if (result.success && result.role) {
+      if (result.success) {
         // Επιτυχής σύνδεση, ανακατεύθυνση στο κατάλληλο dashboard βάσει ρόλου
         // Αν υπάρχει redirect παράμετρος, χρησιμοποίησέ την, αλλιώς πήγαινε στο dashboard του ρόλου
         if (redirect) {

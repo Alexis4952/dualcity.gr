@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server"
 import { createSupabaseServerClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
-import { NextRequest } from "next/server"
 
 export async function POST(request: Request) {
   try {
     console.log("Storage delete API called")
 
     // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
-    const cookieStore = await cookies()
-    const adminId = cookieStore.get("adminId")?.value
-    const adminUsername = cookieStore.get("adminUsername")?.value
+    const adminId = cookies().get("adminId")?.value
+    const adminUsername = cookies().get("adminUsername")?.value
 
     if (!adminId || !adminUsername) {
       console.error("Storage delete API: User not authenticated as admin")

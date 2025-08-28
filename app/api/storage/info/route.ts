@@ -6,10 +6,9 @@ export async function GET() {
   try {
     console.log("Storage info API called")
 
-    const cookieStore = await cookies()
     // Έλεγχος αν ο χρήστης είναι συνδεδεμένος ως admin
-    const adminId = cookieStore.get("adminId")?.value
-    const adminUsername = cookieStore.get("adminUsername")?.value
+    const adminId = cookies().get("adminId")?.value
+    const adminUsername = cookies().get("adminUsername")?.value
 
     if (!adminId || !adminUsername) {
       console.error("Storage info API: User not authenticated as admin")
